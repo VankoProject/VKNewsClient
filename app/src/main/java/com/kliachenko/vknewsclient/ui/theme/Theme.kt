@@ -1,5 +1,6 @@
 package com.kliachenko.vknewsclient.ui.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -7,28 +8,28 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
+@SuppressLint("ConflictingOnColor")
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200,
-
+    primary = Black900,
+    primaryVariant = Black900,
+    secondary = Black900,
     background = Color.Black,
     surface = Color.Black,
-    onPrimary = Color.Black,
-    onSecondary = Color.White,
+    onPrimary = Color.White,
+    onSecondary = Black500,
     onBackground = Color.White,
     onSurface = Color.White,
 )
 
+@SuppressLint("ConflictingOnColor")
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200,
-
+    primary = Color.White,
+    primaryVariant = Color.White,
+    secondary = Color.White,
     background = Color.White,
     surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
+    onPrimary = Black900,
+    onSecondary = Black500,
     onBackground = Color.Black,
     onSurface = Color.Black,
 
