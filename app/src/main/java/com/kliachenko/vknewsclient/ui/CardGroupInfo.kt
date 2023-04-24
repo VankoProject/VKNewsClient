@@ -1,6 +1,7 @@
 package com.kliachenko.vknewsclient.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
@@ -15,37 +16,50 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kliachenko.domain.FeedPost
+import com.kliachenko.domain.StatisticItem
+import com.kliachenko.domain.StatisticType
 import com.kliachenko.vknewsclient.R
-import com.kliachenko.vknewsclient.ui.theme.VKNewsClientTheme
 
 
 @Composable
-fun CardGroupInfo() {
-    Card {
+fun CardGroupInfo(
+    modifier: Modifier = Modifier,
+    feedPost: FeedPost,
+    onStatisticsItemClickListener: (StatisticItem) -> Unit
+) {
+    Card(
+        modifier = Modifier
+    ) {
         Column(
             modifier = Modifier.padding(8.dp)
         ) {
-            PostHeader()
+            PostHeader(feedPost)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = stringResource(R.string.template_text))
+            Text(text = feedPost.contentText)
             Spacer(modifier = Modifier.height(8.dp))
             Image(
-                painter = painterResource(id = R.drawable.kyiv_neperemojny),
-                modifier = Modifier.fillMaxWidth(),
+                painter = painterResource(id = feedPost.contentImageResId),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(550.dp),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Statistics()
+            Statistics(
+                statistics = feedPost.statistics,
+                onItemClickListener = onStatisticsItemClickListener
+            )
         }
     }
 }
 
 @Composable
-private fun PostHeader() {
+private fun PostHeader(
+    feedPost: FeedPost
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,7 +70,7 @@ private fun PostHeader() {
             modifier = Modifier
                 .size(50.dp)
                 .clip(CircleShape),
-            painter = painterResource(id = R.drawable.ic_launcher_background),
+            painter = painterResource(id = feedPost.avatarResId),
             contentDescription = null
         )
         Spacer(
@@ -66,14 +80,14 @@ private fun PostHeader() {
             modifier = Modifier.weight(1f)
         ) {
             Text(
-                text = "/dev/null",
+                text = feedPost.communityName,
                 color = MaterialTheme.colors.onPrimary
             )
             Spacer(
                 modifier = Modifier.width(4.dp)
             )
             Text(
-                text = "14:00",
+                text = feedPost.publicationDate,
                 color = MaterialTheme.colors.onSecondary
             )
         }
@@ -86,31 +100,72 @@ private fun PostHeader() {
 }
 
 @Composable
-private fun Statistics() {
+private fun Statistics(
+    statistics: List<StatisticItem>,
+    onItemClickListener: (StatisticItem) -> Unit
+) {
     Row {
         Row(
             modifier = Modifier.weight(1f)
         ) {
-            IconWithText(iconResId = R.drawable.ic_visibility, text = "966")
+            val viewsItem = statistics.getItemByType(StatisticType.VIEWS)
+            IconWithText(
+                iconResId = R.drawable.ic_visibility,
+                text = viewsItem.count.toString(),
+                onItemClickListener = {
+                    onItemClickListener(viewsItem)
+                }
+            )
         }
         Row(
             modifier = Modifier.weight(1f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            IconWithText(iconResId = R.drawable.ic_reply, text = "7")
-            IconWithText(iconResId = R.drawable.ic_comment, text = "8")
-            IconWithText(iconResId = R.drawable.ic_favorite, text = "27")
+            val sharesItem = statistics.getItemByType(StatisticType.SHARES)
+            IconWithText(
+                iconResId = R.drawable.ic_reply,
+                text = sharesItem.count.toString(),
+                onItemClickListener = {
+                    onItemClickListener(sharesItem)
+                }
+            )
+
+            val commentsItem = statistics.getItemByType(StatisticType.COMMENTS)
+            IconWithText(
+                iconResId = R.drawable.ic_comment,
+                text = commentsItem.count.toString(),
+                onItemClickListener = {
+                    onItemClickListener(commentsItem)
+                }
+            )
+
+            val favouriteItem = statistics.getItemByType(StatisticType.LIKES)
+            IconWithText(
+                iconResId = R.drawable.ic_favorite,
+                text = favouriteItem.count.toString(),
+                onItemClickListener = {
+                    onItemClickListener(favouriteItem)
+                }
+            )
         }
 
     }
 }
 
+private fun List<StatisticItem>.getItemByType(type: StatisticType): StatisticItem {
+    return this.find { it.type == type } ?: throw java.lang.IllegalStateException()
+}
+
 @Composable
 private fun IconWithText(
     iconResId: Int,
-    text: String
+    text: String,
+    onItemClickListener: () -> Unit
 ) {
     Row(
+        modifier = Modifier.clickable {
+            onItemClickListener()
+        },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -123,21 +178,5 @@ private fun IconWithText(
             text = text,
             color = MaterialTheme.colors.onSecondary
         )
-    }
-}
-
-@Preview
-@Composable
-fun PreviewLight() {
-    VKNewsClientTheme(darkTheme = false) {
-        CardGroupInfo()
-    }
-}
-
-@Preview
-@Composable
-fun PreviewDark() {
-    VKNewsClientTheme(darkTheme = true) {
-        CardGroupInfo()
     }
 }
