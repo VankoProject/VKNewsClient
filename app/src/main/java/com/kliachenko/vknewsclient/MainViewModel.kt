@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kliachenko.domain.FeedPost
 import com.kliachenko.domain.StatisticItem
+import com.kliachenko.vknewsclient.ui.NavigationItem
 
 class MainViewModel : ViewModel() {
 
@@ -15,6 +16,7 @@ class MainViewModel : ViewModel() {
     }
     private val _feedPosts = MutableLiveData<List<FeedPost>>(sourceList)
     val feedPosts: LiveData<List<FeedPost>> = _feedPosts
+
 
     fun updateCount(
         item: StatisticItem,
