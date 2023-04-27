@@ -1,5 +1,6 @@
 package com.kliachenko.vknewsclient.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,8 +39,14 @@ fun HomeScreen(
         is HomeScreenState.Comments -> {
             CommentsScreen(
                 feedPost = currentState.feedPost,
-                comments = currentState.comments
+                comments = currentState.comments,
+                onBackPressed = {
+                    viewModel.closeCommentsScreen()
+                }
             )
+            BackHandler {
+                viewModel.closeCommentsScreen()
+            }
         }
         HomeScreenState.Initial -> {}
     }
@@ -91,8 +98,8 @@ private fun FeedPosts(
                     onShareClickListener = { statisticItem ->
                         viewModel.updateCount(statisticItem, feedPost)
                     },
-                    onCommentClickListener = { statisticItem ->
-                        viewModel.updateCount(statisticItem, feedPost)
+                    onCommentClickListener = {
+                        viewModel.showComments(feedPost)
                     },
                 )
             }
