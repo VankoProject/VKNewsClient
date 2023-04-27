@@ -14,18 +14,46 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kliachenko.domain.FeedPost
 import com.kliachenko.vknewsclient.MainViewModel
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
+
 @Composable
 fun HomeScreen(
     viewModel: MainViewModel,
     paddingValues: PaddingValues
 ) {
 
-    val feedPosts = viewModel.feedPosts.observeAsState(listOf())
+    val screenState = viewModel.screenState.observeAsState(HomeScreenState.Initial)
+
+    when (val currentState = screenState.value) {
+        is HomeScreenState.Posts -> {
+            FeedPosts(
+                viewModel = viewModel,
+                paddingValues = paddingValues,
+                posts = currentState.posts
+            )
+        }
+
+        is HomeScreenState.Comments -> {
+            CommentsScreen(
+                feedPost = currentState.feedPost,
+                comments = currentState.comments
+            )
+        }
+        HomeScreenState.Initial -> {}
+    }
 
 
+}
+
+@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
+@Composable
+private fun FeedPosts(
+    posts: List<FeedPost>,
+    viewModel: MainViewModel,
+    paddingValues: PaddingValues
+) {
     LazyColumn(
         modifier = Modifier.padding(paddingValues),
         contentPadding = PaddingValues(
@@ -37,7 +65,7 @@ fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(
-            items = feedPosts.value,
+            items = posts,
             key = { it.id }
         ) { feedPost ->
             val dismissState = rememberDismissState()
@@ -70,5 +98,4 @@ fun HomeScreen(
             }
         }
     }
-
 }
