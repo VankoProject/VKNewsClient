@@ -9,11 +9,10 @@ import com.kliachenko.vknewsclient.ui.CommentsScreenState
 
 class CommentsViewModel(
     feedPost: FeedPost
-): ViewModel() {
+) : ViewModel() {
 
     private val _screenState = MutableLiveData<CommentsScreenState>(CommentsScreenState.Initial)
     val screenState: LiveData<CommentsScreenState> = _screenState
-
 
     init {
         loadComments(feedPost)
