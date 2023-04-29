@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.kliachenko.navigation.AppNavGraph
-import com.kliachenko.navigation.rememberNavigationState
+import com.kliachenko.vknewsclient.navigation.AppNavGraph
+import com.kliachenko.vknewsclient.navigation.rememberNavigationState
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable

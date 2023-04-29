@@ -3,8 +3,8 @@ package com.kliachenko.vknewsclient
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kliachenko.domain.FeedPost
-import com.kliachenko.domain.StatisticItem
+import com.kliachenko.vknewsclient.domain.FeedPost
+import com.kliachenko.vknewsclient.domain.StatisticItem
 import com.kliachenko.vknewsclient.ui.NewsFeedScreenState
 
 class NewsFeedViewModel : ViewModel() {

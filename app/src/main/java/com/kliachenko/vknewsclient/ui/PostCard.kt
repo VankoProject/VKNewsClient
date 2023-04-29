@@ -17,9 +17,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.kliachenko.domain.FeedPost
-import com.kliachenko.domain.StatisticItem
-import com.kliachenko.domain.StatisticType
+import com.kliachenko.vknewsclient.domain.FeedPost
+import com.kliachenko.vknewsclient.domain.StatisticItem
+import com.kliachenko.vknewsclient.domain.StatisticType
 import com.kliachenko.vknewsclient.R
 
 

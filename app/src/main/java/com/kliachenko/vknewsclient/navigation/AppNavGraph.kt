@@ -1,10 +1,10 @@
-package com.kliachenko.navigation
+package com.kliachenko.vknewsclient.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.kliachenko.domain.FeedPost
+import com.kliachenko.vknewsclient.domain.FeedPost
 
 
 @Composable

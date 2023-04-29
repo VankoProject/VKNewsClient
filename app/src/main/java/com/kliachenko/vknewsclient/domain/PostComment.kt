@@ -1,4 +1,4 @@
-package com.kliachenko.domain
+package com.kliachenko.vknewsclient.domain
 
 import com.kliachenko.vknewsclient.R
 

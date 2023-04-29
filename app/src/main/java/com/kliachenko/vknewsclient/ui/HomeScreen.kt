@@ -15,7 +15,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kliachenko.domain.FeedPost
+import com.kliachenko.vknewsclient.domain.FeedPost
 import com.kliachenko.vknewsclient.NewsFeedViewModel
 
 

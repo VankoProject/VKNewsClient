@@ -5,7 +5,7 @@ import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.kliachenko.navigation.Screen
+import com.kliachenko.vknewsclient.navigation.Screen
 import com.kliachenko.vknewsclient.R
 
 sealed class NavigationItem(

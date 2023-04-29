@@ -15,9 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kliachenko.CommentsViewModelFactory
-import com.kliachenko.domain.FeedPost
-import com.kliachenko.domain.PostComment
+import com.kliachenko.vknewsclient.CommentsViewModelFactory
+import com.kliachenko.vknewsclient.domain.FeedPost
+import com.kliachenko.vknewsclient.domain.PostComment
 import com.kliachenko.vknewsclient.CommentsViewModel
 import com.kliachenko.vknewsclient.ui.theme.VKNewsClientTheme
 
