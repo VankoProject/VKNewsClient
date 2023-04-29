@@ -1,4 +1,4 @@
-package com.kliachenko.domain
+package com.kliachenko.vknewsclient.domain
 
 data class StatisticItem(
     val type: StatisticType,

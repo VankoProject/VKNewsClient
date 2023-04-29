@@ -1,8 +1,8 @@
-package com.kliachenko.navigation
+package com.kliachenko.vknewsclient.navigation
 
 import android.net.Uri
 import com.google.gson.Gson
-import com.kliachenko.domain.FeedPost
+import com.kliachenko.vknewsclient.domain.FeedPost
 
 sealed class Screen(
     val route: String

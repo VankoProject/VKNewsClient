@@ -1,6 +1,6 @@
 package com.kliachenko.vknewsclient.ui
 
-import com.kliachenko.domain.FeedPost
+import com.kliachenko.vknewsclient.domain.FeedPost
 
 sealed class NewsFeedScreenState {
 
