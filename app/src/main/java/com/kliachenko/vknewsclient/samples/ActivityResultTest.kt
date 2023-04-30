@@ -1,4 +1,4 @@
-package com.kliachenko.vknewsclient.ui
+package com.kliachenko.vknewsclient.samples
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult

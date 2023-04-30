@@ -1,4 +1,4 @@
-package com.kliachenko.vknewsclient.ui
+package com.kliachenko.vknewsclient.presentation.comments
 
 import com.kliachenko.vknewsclient.domain.FeedPost
 import com.kliachenko.vknewsclient.domain.PostComment

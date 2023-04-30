@@ -1,4 +1,4 @@
-package com.kliachenko.vknewsclient.ui
+package com.kliachenko.vknewsclient.presentation.news
 
 import com.kliachenko.vknewsclient.domain.FeedPost
 

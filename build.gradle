@@ -9,7 +9,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
     ext {
-        compose_ui_version = '1.4.0'
+        compose_ui_version = '1.7.0'
     }
 }
 
