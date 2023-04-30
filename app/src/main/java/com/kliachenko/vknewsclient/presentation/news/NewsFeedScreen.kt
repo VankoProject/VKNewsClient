@@ -1,4 +1,4 @@
-package com.kliachenko.vknewsclient.ui
+package com.kliachenko.vknewsclient.presentation.news
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -16,11 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kliachenko.vknewsclient.domain.FeedPost
-import com.kliachenko.vknewsclient.NewsFeedViewModel
+import com.kliachenko.vknewsclient.presentation.main.NewsFeedViewModel
 
 
 @Composable
-fun HomeScreen(
+fun NewsFeedScreen(
     paddingValues: PaddingValues,
     onCommentClickListener: (FeedPost) -> Unit
 ) {

@@ -1,4 +1,4 @@
-package com.kliachenko.vknewsclient.ui
+package com.kliachenko.vknewsclient.presentation.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

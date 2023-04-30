@@ -1,4 +1,4 @@
-package com.kliachenko.vknewsclient.ui
+package com.kliachenko.vknewsclient.presentation.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
@@ -12,6 +12,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.kliachenko.vknewsclient.navigation.AppNavGraph
 import com.kliachenko.vknewsclient.navigation.rememberNavigationState
+import com.kliachenko.vknewsclient.presentation.comments.CommentsScreen
+import com.kliachenko.vknewsclient.presentation.news.NewsFeedScreen
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -60,7 +62,7 @@ fun MainScreen() {
         AppNavGraph(
             navHostController = navigationState.navHostController,
             newsFeedScreenContent = {
-                HomeScreen(
+                NewsFeedScreen(
                     paddingValues = paddingValues,
                     onCommentClickListener = {
                         navigationState.navigateTocComments(it)
