@@ -1,7 +1,6 @@
 package com.kliachenko.vknewsclient.domain
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlin.random.Random
 
 
 data class FeedPost(
@@ -11,5 +10,6 @@ data class FeedPost(
     val communityImageUrl: String,
     val contentText: String,
     val contentImageUrl: String?,
-    val statistics: List<StatisticItem>
+    val statistics: List<StatisticItem>,
+    val isFavourite: Boolean
 )
