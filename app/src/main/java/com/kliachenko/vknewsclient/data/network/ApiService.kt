@@ -1,5 +1,6 @@
 package com.kliachenko.vknewsclient.data.network
 
+import com.kliachenko.vknewsclient.data.model.CommentsResponseDto
 import com.kliachenko.vknewsclient.data.model.LikesCountResponseDto
 import com.kliachenko.vknewsclient.data.model.NewsFeedResponseDto
 import retrofit2.http.GET
@@ -39,4 +40,12 @@ interface ApiService {
         @Query("owner_id") ownerId: Long,
         @Query("item_id") postId: Long
     )
+
+    @GET("wall.getComments?v=5.131&extended=1&fields=photo_100")
+    suspend fun getComments(
+        @Query("access_token") accessToken: String,
+        @Query("owner_id") ownerId: Long,
+        @Query("post_id") postId: Long
+    ): CommentsResponseDto
+
 }
