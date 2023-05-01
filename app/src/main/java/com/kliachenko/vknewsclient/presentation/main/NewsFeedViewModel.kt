@@ -6,6 +6,7 @@ import com.kliachenko.vknewsclient.data.repository.NewFeedRepository
 import com.kliachenko.vknewsclient.domain.FeedPost
 import com.kliachenko.vknewsclient.domain.StatisticItem
 import com.kliachenko.vknewsclient.presentation.news.NewsFeedScreenState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class NewsFeedViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,17 +22,25 @@ class NewsFeedViewModel(application: Application) : AndroidViewModel(application
         loadRecommendations()
     }
 
-    fun changeLikeStatus(feedPost: FeedPost) {
-        viewModelScope.launch {
-            repository.changeLikeStatus(feedPost)
-            _screenState.value = NewsFeedScreenState.Posts(posts = repository.feedPosts)
-        }
-    }
-
     private fun loadRecommendations() {
         viewModelScope.launch {
             val feedPosts = repository.loadRecommendations()
             _screenState.value = NewsFeedScreenState.Posts(posts = feedPosts)
+        }
+    }
+
+    fun loadNextRecommendations() {
+        _screenState.value = NewsFeedScreenState.Posts(
+            posts = repository.feedPosts,
+            nextDataIsLoading = true
+        )
+        loadRecommendations()
+    }
+
+    fun changeLikeStatus(feedPost: FeedPost) {
+        viewModelScope.launch {
+            repository.changeLikeStatus(feedPost)
+            _screenState.value = NewsFeedScreenState.Posts(posts = repository.feedPosts)
         }
     }
 

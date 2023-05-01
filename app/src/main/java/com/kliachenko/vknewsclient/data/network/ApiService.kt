@@ -26,4 +26,10 @@ interface ApiService {
         @Query("owner_id") ownerId: Long,
         @Query("item_id") postId: Long
     ): LikesCountResponseDto
+
+    @GET("newsfeed.getRecommended?v=5.131")
+    suspend fun loadRecommendation(
+        @Query("access_token") token: String,
+        @Query("start_from") startFrom: String
+    ): NewsFeedResponseDto
 }
