@@ -1,6 +1,5 @@
 package com.kliachenko.vknewsclient.presentation.news
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -16,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -61,7 +59,7 @@ fun PostCard(
                 onShareClickListener = onShareClickListener,
                 onCommentClickListener = onCommentClickListener,
                 onViewsClickListener = onViewsClickListener,
-                isFavourite = feedPost.isFavourite
+                isFavourite = feedPost.isLiked
             )
         }
     }

@@ -2,13 +2,10 @@ package com.kliachenko.vknewsclient.presentation.main
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.kliachenko.vknewsclient.data.mapper.NewsFeedMapper
-import com.kliachenko.vknewsclient.data.network.ApiFactory
+import com.kliachenko.vknewsclient.data.repository.NewFeedRepository
 import com.kliachenko.vknewsclient.domain.FeedPost
 import com.kliachenko.vknewsclient.domain.StatisticItem
 import com.kliachenko.vknewsclient.presentation.news.NewsFeedScreenState
-import com.vk.api.sdk.VKPreferencesKeyValueStorage
-import com.vk.api.sdk.auth.VKAccessToken
 import kotlinx.coroutines.launch
 
 class NewsFeedViewModel(application: Application) : AndroidViewModel(application) {
@@ -18,18 +15,22 @@ class NewsFeedViewModel(application: Application) : AndroidViewModel(application
     private val _screenState = MutableLiveData<NewsFeedScreenState>(initialState)
     val screenState: LiveData<NewsFeedScreenState> = _screenState
 
-    private val mapper = NewsFeedMapper()
+    private val repository = NewFeedRepository(application)
 
     init {
         loadRecommendations()
     }
 
+    fun changeLikeStatus(feedPost: FeedPost) {
+        viewModelScope.launch {
+            repository.changeLikeStatus(feedPost)
+            _screenState.value = NewsFeedScreenState.Posts(posts = repository.feedPosts)
+        }
+    }
+
     private fun loadRecommendations() {
         viewModelScope.launch {
-            val storage = VKPreferencesKeyValueStorage(getApplication())
-            val token = VKAccessToken.restore(storage) ?: return@launch
-            val response = ApiFactory.apiService.loadRecommendation(token.accessToken)
-            val feedPosts = mapper.mapResponseToPosts(response)
+            val feedPosts = repository.loadRecommendations()
             _screenState.value = NewsFeedScreenState.Posts(posts = feedPosts)
         }
     }
