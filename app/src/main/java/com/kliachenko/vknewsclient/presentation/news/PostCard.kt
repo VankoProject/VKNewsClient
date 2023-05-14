@@ -19,9 +19,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.kliachenko.vknewsclient.R
-import com.kliachenko.vknewsclient.domain.FeedPost
-import com.kliachenko.vknewsclient.domain.StatisticItem
-import com.kliachenko.vknewsclient.domain.StatisticType
+import com.kliachenko.vknewsclient.domain.entity.FeedPost
+import com.kliachenko.vknewsclient.domain.entity.StatisticItem
+import com.kliachenko.vknewsclient.domain.entity.StatisticType
 import com.kliachenko.vknewsclient.ui.theme.DarkRed
 
 
