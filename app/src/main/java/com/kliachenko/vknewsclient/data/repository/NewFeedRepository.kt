@@ -3,15 +3,13 @@ package com.kliachenko.vknewsclient.data.repository
 import android.app.Application
 import com.kliachenko.vknewsclient.data.mapper.NewsFeedMapper
 import com.kliachenko.vknewsclient.data.network.ApiFactory
-import com.kliachenko.vknewsclient.domain.FeedPost
-import com.kliachenko.vknewsclient.domain.PostComment
-import com.kliachenko.vknewsclient.domain.StatisticItem
-import com.kliachenko.vknewsclient.domain.StatisticType
+import com.kliachenko.vknewsclient.domain.*
 import com.kliachenko.vknewsclient.extentions.mergeWith
 import com.vk.api.sdk.VKPreferencesKeyValueStorage
 import com.vk.api.sdk.auth.VKAccessToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 
 class NewFeedRepository(application: Application) {
@@ -45,6 +43,10 @@ class NewFeedRepository(application: Application) {
             emit(feedPosts)
         }
     }
+        .retry {
+            delay(RETRY_TIMEOUT_MILLIS)
+            true
+        }
 
     private val apiService = ApiFactory.apiService
     private val mapper = NewsFeedMapper()
@@ -58,10 +60,10 @@ class NewFeedRepository(application: Application) {
     val recommendations: StateFlow<List<FeedPost>> = loadedListFlow
         .mergeWith(refreshedListFlow)
         .stateIn(
-        scope = coroutineScope,
-        started = SharingStarted.Lazily,
-        initialValue = feedPosts
-    )
+            scope = coroutineScope,
+            started = SharingStarted.Lazily,
+            initialValue = feedPosts
+        )
 
     suspend fun loadNextData() {
         nextDataNeededEvents.emit(Unit)
@@ -81,13 +83,16 @@ class NewFeedRepository(application: Application) {
         refreshedListFlow.emit(feedPosts)
     }
 
-    suspend fun getComments(feedPost: FeedPost): List<PostComment> {
+    fun getComments(feedPost: FeedPost): Flow<List<PostComment>> = flow {
         val comments = apiService.getComments(
             accessToken = getAccessToken(),
             ownerId = feedPost.communityId,
             postId = feedPost.id
         )
-        return mapper.mapResponseToComments(comments)
+        emit(mapper.mapResponseToComments(comments))
+    }.retry {
+        delay(RETRY_TIMEOUT_MILLIS)
+        true
     }
 
     suspend fun changeLikeStatus(feedPost: FeedPost) {
@@ -114,4 +119,11 @@ class NewFeedRepository(application: Application) {
         _feedPosts[postIndex] = newPost
         refreshedListFlow.emit(feedPosts)
     }
+
+    companion object {
+
+        private const val RETRY_TIMEOUT_MILLIS = 3000L
+
+    }
+
 }
