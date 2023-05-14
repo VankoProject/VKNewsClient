@@ -1,8 +1,7 @@
 package com.kliachenko.vknewsclient.data.repository
 
-import android.app.Application
 import com.kliachenko.vknewsclient.data.mapper.NewsFeedMapper
-import com.kliachenko.vknewsclient.data.network.ApiFactory
+import com.kliachenko.vknewsclient.data.network.ApiService
 import com.kliachenko.vknewsclient.domain.entity.*
 import com.kliachenko.vknewsclient.domain.repository.NewsFeedRepository
 import com.kliachenko.vknewsclient.extentions.mergeWith
@@ -12,10 +11,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class NewsFeedRepositoryImpl(application: Application) : NewsFeedRepository {
+class NewsFeedRepositoryImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val mapper: NewsFeedMapper,
+    private val storage: VKPreferencesKeyValueStorage
+) : NewsFeedRepository {
 
-    private val storage = VKPreferencesKeyValueStorage(application)
     private val token
         get() = VKAccessToken.restore(storage)
 
@@ -49,10 +52,6 @@ class NewsFeedRepositoryImpl(application: Application) : NewsFeedRepository {
             delay(RETRY_TIMEOUT_MILLIS)
             true
         }
-
-
-    private val apiService = ApiFactory.apiService
-    private val mapper = NewsFeedMapper()
 
     private val _feedPosts = mutableListOf<FeedPost>()
     private val feedPosts: List<FeedPost>
