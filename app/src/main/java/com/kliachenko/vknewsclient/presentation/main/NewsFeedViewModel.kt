@@ -1,16 +1,22 @@
 package com.kliachenko.vknewsclient.presentation.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.kliachenko.vknewsclient.data.repository.NewFeedRepository
 import com.kliachenko.vknewsclient.domain.FeedPost
 import com.kliachenko.vknewsclient.extentions.mergeWith
 import com.kliachenko.vknewsclient.presentation.news.NewsFeedScreenState
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class NewsFeedViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
+        Log.d("NewFeedViewModel", "Exception caught by Exception Handler")
+    }
 
     private val repository = NewFeedRepository(application)
 
@@ -38,13 +44,13 @@ class NewsFeedViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun changeLikeStatus(feedPost: FeedPost) {
-        viewModelScope.launch {
+        viewModelScope.launch (exceptionHandler){
             repository.changeLikeStatus(feedPost)
         }
     }
 
     fun remove(feedPost: FeedPost) {
-        viewModelScope.launch {
+        viewModelScope.launch (exceptionHandler) {
             repository.deletePost(feedPost)
         }
     }
