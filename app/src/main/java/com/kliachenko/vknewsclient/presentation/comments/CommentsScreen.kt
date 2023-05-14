@@ -1,6 +1,5 @@
 package com.kliachenko.vknewsclient.presentation.comments
 
-import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,18 +20,19 @@ import coil.compose.AsyncImage
 import com.kliachenko.vknewsclient.R
 import com.kliachenko.vknewsclient.domain.entity.FeedPost
 import com.kliachenko.vknewsclient.domain.entity.PostComment
+import com.kliachenko.vknewsclient.presentation.NewsFeedApplication
 
 @Composable
 fun CommentsScreen(
     onBackPressed: () -> Unit,
     feedPost: FeedPost
 ) {
-    val viewModel: CommentsViewModel = viewModel(
-        factory = CommentsViewModelFactory(
-            feedPost,
-            LocalContext.current.applicationContext as Application
-        )
-    )
+    val component = (LocalContext.current.applicationContext as NewsFeedApplication)
+        .component
+        .getCommentsScreenComponentFactory()
+        .create(feedPost)
+
+    val viewModel: CommentsViewModel = viewModel(factory = component.getViewModelFactory())
     val screenState = viewModel.screenState.collectAsState(CommentsScreenState.Initial)
     val currentState = screenState.value
 

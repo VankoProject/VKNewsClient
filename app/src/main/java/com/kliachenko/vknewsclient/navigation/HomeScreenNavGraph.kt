@@ -9,7 +9,6 @@ import androidx.navigation.navigation
 import com.google.gson.Gson
 import com.kliachenko.vknewsclient.domain.entity.FeedPost
 
-
 fun NavGraphBuilder.homeScreenNavGraph(
     newsFeedScreenContent: @Composable () -> Unit,
     commentsScreenContent: @Composable (FeedPost) -> Unit,
