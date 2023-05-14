@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kliachenko.vknewsclient.domain.FeedPost
+import com.kliachenko.vknewsclient.domain.entity.FeedPost
 import com.kliachenko.vknewsclient.presentation.main.NewsFeedViewModel
 import com.kliachenko.vknewsclient.ui.theme.DarkBlue
 

@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.kliachenko.vknewsclient.R
-import com.kliachenko.vknewsclient.domain.FeedPost
-import com.kliachenko.vknewsclient.domain.PostComment
+import com.kliachenko.vknewsclient.domain.entity.FeedPost
+import com.kliachenko.vknewsclient.domain.entity.PostComment
 
 @Composable
 fun CommentsScreen(
